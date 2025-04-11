@@ -11,6 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -23,9 +24,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 
 import { Input } from "@/components/ui/input";
-import { fontFamilies, fontWeight, textAlignments } from "@/constants";
+import {
+  fontFamilies,
+  fontWeight,
+  imageStyles,
+  textAlignments,
+} from "@/constants";
 
 const formSchema = z.object({
+  imagestyle: z.string({
+    required_error: "Please select an image style",
+  }),
   heading: z.string().min(2, {
     message: "heading must be at least 2 characters.",
   }),
@@ -41,10 +50,10 @@ const formSchema = z.object({
   alignment: z.string({
     required_error: "Please select text alignment",
   }),
-  Bgcolor: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {
+  backgroundcolor: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {
     message: "Please enter a valid hex color code (e.g., #FF0000)",
   }),
-  Txcolor: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {
+  textcolor: z.string().regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {
     message: "Please enter a valid hex color code (e.g., #FF0000)",
   }),
   fontsize: z.number().min(8).max(72),
@@ -56,13 +65,14 @@ const DesignInputForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      imagestyle: "color",
       heading: "",
       content: "",
       family: "",
       weight: "",
       alignment: "",
-      Bgcolor: "#000000",
-      Txcolor: "#000000",
+      backgroundcolor: "#000000",
+      textcolor: "#000000",
       fontsize: 16,
       imageopacity: 50,
     },
@@ -76,6 +86,40 @@ const DesignInputForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        {/* background style */}
+        <FormField
+          control={form.control}
+          name="imagestyle"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Background Style</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex gap-4"
+                >
+                  {imageStyles.map((style) => (
+                    <FormItem
+                      key={style.value}
+                      className="flex space-y-0 items-center space-x-2"
+                    >
+                      <RadioGroupItem value={style.value} id={style.value} />
+                      <FormLabel
+                        htmlFor={style.value}
+                        className="font-normal space-y-0"
+                      >
+                        {style.label}
+                      </FormLabel>
+                    </FormItem>
+                  ))}
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         {/* heading */}
         <FormField
           control={form.control}
@@ -204,7 +248,7 @@ const DesignInputForm = () => {
 
         <FormField
           control={form.control}
-          name="Bgcolor"
+          name="backgroundcolor"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Background color</FormLabel>
@@ -230,7 +274,7 @@ const DesignInputForm = () => {
         {/* Text color */}
         <FormField
           control={form.control}
-          name="Txcolor"
+          name="textcolor"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Text color</FormLabel>

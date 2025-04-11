@@ -13,25 +13,6 @@ const DesignControls = () => {
         <Label htmlFor="edit-mode">Enable editing mode</Label>
       </div>
 
-      {/* style container */}
-      <div className="my-6">
-        <h3 className="body-regular my-2">Background Style</h3>
-
-        <RadioGroup defaultValue="color" className="flex body-medium">
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="color" id="option-one" />
-            <Label htmlFor="option-one">Color</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="image-background" id="option-two" />
-            <Label htmlFor="option-two">Image Background</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="centered-image" id="option-three" />
-            <Label htmlFor="option-three">Centered Image</Label>
-          </div>
-        </RadioGroup>
-      </div>
       <DesignInputForm />
     </div>
   );

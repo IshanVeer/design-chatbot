@@ -35,3 +35,9 @@ export const textAlignments = [
   { value: "center", label: "Center", cssValue: "center" },
   { value: "right", label: "Right", cssValue: "right" },
 ];
+
+export const imageStyles = [
+  { label: "Color Background", value: "color" },
+  { label: "Image Background", value: "image" },
+  { label: "No Background", value: "none" },
+];

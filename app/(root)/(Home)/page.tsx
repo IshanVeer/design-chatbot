@@ -1,7 +1,23 @@
+import DesignControls from "@/components/design/DesignControls";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      hello world
+    <div>
+      <Tabs defaultValue="chat" className="w-full">
+        <TabsList className="w-full ">
+          <TabsTrigger className="w-full " value="chat">
+            Chat
+          </TabsTrigger>
+          <TabsTrigger className="w-full" value="controls">
+            Design Controls
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="chat">chat</TabsContent>
+        <TabsContent value="controls">
+          <DesignControls />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

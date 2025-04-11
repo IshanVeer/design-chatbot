@@ -5,11 +5,11 @@ export default function Home() {
   return (
     <div>
       <Tabs defaultValue="chat" className="w-full">
-        <TabsList className="w-full ">
-          <TabsTrigger className="w-full " value="chat">
+        <TabsList className="w-full rounded-sm ">
+          <TabsTrigger className="w-full rounded-[2px]" value="chat">
             Chat
           </TabsTrigger>
-          <TabsTrigger className="w-full" value="controls">
+          <TabsTrigger className="w-full rounded-[2px]" value="controls">
             Design Controls
           </TabsTrigger>
         </TabsList>

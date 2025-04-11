@@ -2,6 +2,7 @@ import React from "react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import DesignInputForm from "./DesignInputForm";
 
 const DesignControls = () => {
   return (
@@ -13,7 +14,7 @@ const DesignControls = () => {
       </div>
 
       {/* style container */}
-      <div>
+      <div className="my-6">
         <h3 className="body-regular my-2">Background Style</h3>
 
         <RadioGroup defaultValue="color" className="flex body-medium">
@@ -31,6 +32,7 @@ const DesignControls = () => {
           </div>
         </RadioGroup>
       </div>
+      <DesignInputForm />
     </div>
   );
 };

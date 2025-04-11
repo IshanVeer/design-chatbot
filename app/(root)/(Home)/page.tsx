@@ -1,3 +1,4 @@
+import Chat from "@/components/chat/Chat";
 import DesignControls from "@/components/design/DesignControls";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -13,7 +14,9 @@ export default function Home() {
             Design Controls
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="chat">chat</TabsContent>
+        <TabsContent value="chat">
+          <Chat />
+        </TabsContent>
         <TabsContent value="controls">
           <DesignControls />
         </TabsContent>

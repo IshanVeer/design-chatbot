@@ -3,7 +3,7 @@ import React from "react";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="m-8">
-      <div>
+      <div className="my-4">
         <h1 className="h1-bold">DesignChat</h1>
       </div>
       <div className="flex">

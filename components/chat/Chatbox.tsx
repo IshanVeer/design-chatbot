@@ -7,7 +7,12 @@ const Chatbox = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<
     { sender: "user" | "bot"; text: string }[]
-  >([]);
+  >([
+    {
+      sender: "bot",
+      text: "Welcome to DesignChat! I'll help you create a beautiful design with the puppy image. What would you like to change about the current design?",
+    },
+  ]);
 
   const submitHandler = () => {
     if (!input.trim()) return;
@@ -30,7 +35,7 @@ const Chatbox = () => {
             }`}
           >
             <span
-              className={`inline-block px-3 py-2 rounded-md ${
+              className={`inline-block max-w-[400px] px-4 py-2 rounded-lg ${
                 msg.sender === "user"
                   ? "bg-gray-950 text-white"
                   : "bg-gray-200 text-black"
@@ -38,6 +43,13 @@ const Chatbox = () => {
             >
               {msg.text}
             </span>
+            <div className="mt-1">
+              {msg.sender === "user" ? (
+                <Button className="text-xs px-2 py-0" variant="ghost">
+                  Save checkpoint
+                </Button>
+              ) : null}
+            </div>
           </div>
         ))}
       </div>

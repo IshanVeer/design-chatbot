@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <div className="my-4">
         <h1 className="h1-bold">DesignChat</h1>
       </div>
-      <div className="flex">
+      <div className="flex  gap-4">
         <DesignProvider>
           <section className="w-1/2">{children}</section>
           <DesignPreview />

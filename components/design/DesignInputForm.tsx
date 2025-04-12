@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -30,6 +30,7 @@ import {
   imageStyles,
   textAlignments,
 } from "@/constants";
+import { useDesign } from "@/context/DesignProvider";
 
 const formSchema = z.object({
   imagestyle: z.string({
@@ -61,6 +62,7 @@ const formSchema = z.object({
 });
 
 const DesignInputForm = () => {
+  const { updateDesignData } = useDesign();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -79,10 +81,16 @@ const DesignInputForm = () => {
   });
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
   }
+  useEffect(() => {
+    const subscription = form.watch((values) => {
+      updateDesignData(values);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [form.watch, updateDesignData]);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
@@ -96,6 +104,7 @@ const DesignInputForm = () => {
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
+                  value={field.value}
                   defaultValue={field.value}
                   className="flex gap-4"
                 >
@@ -161,7 +170,7 @@ const DesignInputForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Font Family</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Choose font family..." />
@@ -191,7 +200,7 @@ const DesignInputForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Font Weight</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Choose font weight..." />
@@ -221,7 +230,7 @@ const DesignInputForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Text alignment</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Choose text alignment..." />
@@ -305,7 +314,7 @@ const DesignInputForm = () => {
                   min={8}
                   max={72}
                   step={1}
-                  defaultValue={[field.value]}
+                  value={[field.value]}
                   onValueChange={(value) => field.onChange(value[0])}
                 />
               </FormControl>
@@ -324,7 +333,7 @@ const DesignInputForm = () => {
                   min={0}
                   max={100}
                   step={1}
-                  defaultValue={[field.value]}
+                  value={[field.value]}
                   onValueChange={(value) => field.onChange(value[0])}
                 />
               </FormControl>

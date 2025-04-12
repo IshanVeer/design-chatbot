@@ -16,15 +16,11 @@ interface DesignData {
 
 interface DesignContextType {
   designData: DesignData;
-  editMode: boolean;
   updateDesignData: (newData: Partial<DesignData>) => void;
-  updateDesignProperty: (property: keyof DesignData, value: any) => void;
-  toggleEditMode: () => void;
-  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   resetDesign: () => void;
 }
 
-// Initial state
+// Initial state for the design
 const initialDesignState: DesignData = {
   imagestyle: "solid",
   heading: "Your Design Heading",
@@ -39,41 +35,31 @@ const initialDesignState: DesignData = {
   imageopacity: 50,
 };
 
-// Pass the correct type to createContext, and set default to undefined
+// Create the context with a default value of undefined
 const DesignContext = createContext<DesignContextType | undefined>(undefined);
 
-// Provider
+// Provider to manage the global state
 export default function DesignProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const [designData, setDesignData] = useState<DesignData>(initialDesignState);
-  const [editMode, setEditMode] = useState(true);
 
+  // Update design data based on partial new data
   const updateDesignData = (newData: Partial<DesignData>) => {
     setDesignData((prev) => ({ ...prev, ...newData }));
   };
 
-  const updateDesignProperty = (property: keyof DesignData, value: any) => {
-    setDesignData((prev) => ({ ...prev, [property]: value }));
-  };
-
-  const toggleEditMode = () => {
-    setEditMode((prev) => !prev);
-  };
-
+  // Reset the design to its initial state
   const resetDesign = () => {
     setDesignData(initialDesignState);
   };
 
+  // The context value that will be provided to the app
   const value: DesignContextType = {
     designData,
-    editMode,
     updateDesignData,
-    updateDesignProperty,
-    toggleEditMode,
-    setEditMode,
     resetDesign,
   };
 
@@ -82,7 +68,7 @@ export default function DesignProvider({
   );
 }
 
-// Hook
+// Custom hook to use the context
 export const useDesign = () => {
   const context = useContext(DesignContext);
   if (context === undefined) {

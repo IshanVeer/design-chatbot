@@ -71,7 +71,7 @@ const DesignInputForm = () => {
       family: "",
       weight: "",
       alignment: "",
-      backgroundcolor: "#000000",
+      backgroundcolor: "#f0dda8",
       textcolor: "#000000",
       fontsize: 16,
       imageopacity: 50,

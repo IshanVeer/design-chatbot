@@ -45,7 +45,10 @@ const Chatbox = () => {
             </span>
             <div className="mt-1">
               {msg.sender === "user" ? (
-                <Button className="text-xs px-2 py-0" variant="ghost">
+                <Button
+                  className="text-xs px-2 py-0 text-gray-600 font-medium"
+                  variant="ghost"
+                >
                   Save checkpoint
                 </Button>
               ) : null}

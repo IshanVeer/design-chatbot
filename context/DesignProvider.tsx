@@ -2,12 +2,12 @@
 import React, { createContext, useContext, useState } from "react";
 
 interface DesignData {
-  imagestyle: string;
+  imagestyle: "image" | "solid"; // or any other allowed values
   heading: string;
   content: string;
   family: string;
-  weight: string;
-  alignment: string;
+  weight: "normal" | "bold" | "lighter" | "bolder" | number; // valid CSS font weights
+  alignment: "left" | "right" | "center" | "justify" | "start" | "end";
   backgroundcolor: string;
   textcolor: string;
   fontsize: number;
